@@ -352,6 +352,7 @@ body{
 
 .back-btn{
     background-color:#2563eb ;
+    font-size: 20px;
     border: none;
     border-radius: 0.25rem;
     color: white;
@@ -372,7 +373,8 @@ body{
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
-    background-color: grey; 
+    background-color: rgb(165, 161, 161); 
+    color: white;
 }
 
 .report-btn.active {
@@ -538,3 +540,23 @@ textarea {
 }
 
 
+@media (max-width: 480px) {
+    .header {
+       
+        align-items: flex-start;
+    }
+
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .transactions-container {
+        grid-template-columns: 1fr;
+    }
+
+   
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+}
