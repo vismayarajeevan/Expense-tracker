@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense</title>
+
+    <!-- link css -->
+     <link rel="stylesheet" href="style.css">
+
+      <!-- font awesom cdn link -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+      <!-- google font link -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+     <!-- link chart js for pie chart -->
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+
+    <div class="container">
+        <!---------------------------------------------- side bar ----------------------------------------------------------------->
+         <aside class="sidebar">
+            <div class="profile">
+            <img src="images/ui.jpg" alt="profile" class="profile-img">
+            <div class="profile-info">
+                <h2>John Doe</h2>
+                <p>personal Account</p>
+            </div>
+        </div>
+
+
+            <!--------- navbar ------------------>
+            <nav class="nav-menu">
+                <button class="nav-item active" data-page="home" onclick="ShowHomePage()">
+                    <i class="fa-solid fa-house" style="color: #fcfcfc;"></i>
+                    Home
+                </button>
+                <button class="nav-item" id="addExpenseBtn" onclick="openModal()">
+                    <i class="fa-solid fa-square-plus"></i>
+                    Add Expense
+                </button>
+                <button class="nav-item" onclick="logout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Logout
+                </button>
+            </nav>
+
+         </aside>
+
+         <!------------------------------------------------------------- end of side bar -------------------------------------------------------->
+
+
+         <!-- main content -->
+
+         <main class="main-content" id="main-content">
+            <!-- home page -->
+             <div class="page" id="homePage">
+
+                <div class="header">
+                    <h1>Dashboard</h1>
+                    <button class="report-butn" data-page="report" onclick="ShowReportPage()">
+                        <i class="fa-solid fa-chart-simple" style="color: #fcfdfd;"></i> 
+                        Report
+                    </button>
+                </div>
+
+                <!-- card to display amount -->
+
+                <div class="summary-cards">
+                    <div class="card">
+                        <div class="card-icon income">
+                            <i class="fa-solid fa-dollar-sign fa-xl" style="color: #30ab55;"></i>
+                        </div>
+                        <h3>Income</h3>
+                        <p class="amount" id="totalIncome">$0.00</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon expense">
+                            <i class="fa-regular fa-square-minus fa-lg" style="color: #d83c31;"></i>
+                        </div>
+                        <h3>Expenses</h3>
+                        <p class="amount" id="totalExpense">$0.00</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon balance"> 
+                            <i class="fa-regular fa-face-smile fa-xl" style="color: #30b6c0;"></i>
+                        </div>
+                        <h3>Balance</h3>
+                        <p class="amount" id="totalBalance">$0.00</p>
+                    </div>
+                </div>
+
+
+                <!-- details div -->
+
+                <div class="transactions-container">
+                    <div class="transactions-list">
+                        <h3>Recent Transactions</h3>
+                        <div id="transactionsList">
+                        </div>
+                    </div>
+                    <div class="transaction-details" id="transactionDetails">
+                    <div class="details-content"></div>
+                </div>
+                </div>
+            </div>
+
+
+
+             <!---------------- Report Page -------------------->
+             <div class="page hidden" id="reportPage">
+
+                <!-- heading and back button -->
+                <div class="header">
+                    <button class="back-btn" data-page="home" onclick="ShowHomePage()">
+                       
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Back
+                    </button>
+                    <h1>Financial Report</h1>
+                </div>
+
+
+                <!-- button to choose income and expense -->
+                <div class="report-container">
+                    <div class="report-controls">
+                        <button class="report-btn active" onclick="showChart('expense')" id="expenseChartBtn"  data-type="expense">Expenses</button>
+                        <button class="report-btn" onclick="showChart('income')" id="incomeChartBtn" data-type="income">Income</button>
+                    </div>
+
+
+                    
+                    <!-- piechart -->
+                    <div class="chart-container">
+                        <canvas  id="expenseChart"></canvas>
+                        <canvas id="incomeChart"></canvas>
+                    </div>
+
+                    <!-- labels for pie chart -->
+                    <div class="chart-legend" id="chartLegend"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+                
+<!----------------------------------- popup --------------------------->
+
+
+<!-- Transaction Modal -->
+<div class="modal" id="transactionModal" >
+    <div class="modal-content">
+
+        <!-- heading -->
+        <div class="modal-header">
+            <h2>Add Transaction</h2>
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+        </div>
+
+        <!-- form -->
+        <form id="transactionForm" onsubmit="handleFormSubmit(event)">
+            <!-- date selection radio button -->
+            <div class="date-selection">
+                <label>
+                    <input type="radio" name="dateType" value="current" onchange="toggleDateInput()" checked> Current Date
+                </label>
+                <label>
+                    <input type="radio" name="dateType" value="custom" onchange="toggleDateInput()"> Choose Date
+                </label>
+                <input type="date" id="customDate" class="hidden">
+            </div>
+
+           
+            <!-- button to select transaction type -->
+
+            <div class="transaction-type">
+                <button type="button" class="type-btn active" onclick="selectType('income')" data-type="income">Income</button>
+                <button type="button" class="type-btn" onclick="selectType('expense')" data-type="expense">Expense</button>
+            </div>
+
+            <!-- enter amount -->
+            <input type="number" placeholder="Amount" id="amount" required>
+
+            <!-- select categories -->
+            
+            <select required id="category">
+               
+            </select>
+
+            <!-- textarea to add description -->
+            <textarea placeholder="Description" id="description" required></textarea>
+
+            <!-- submit and cancel button -->
+            <div class="form-buttons">
+                <button type="submit" class="submit-btn">Submit</button>
+                <button type="button" class="cancel-btn" onclick="closeModal()">Cancel</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- link js file -->
+<script src="main.js"></script>
+    
+</body>
+</html>

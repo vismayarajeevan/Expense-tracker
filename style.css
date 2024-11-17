@@ -1,0 +1,539 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
+    color: #333;
+    
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/***************************** sidebar designs ****************************/
+.sidebar{
+    width: 300px;
+    background-color: #2563eb;
+    color: white;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+.profile{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-img {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info h2 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.profile-info p {
+    font-size: 0.875rem;
+    opacity: 0.8;
+}
+
+.nav-menu{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;             /* This creates space between icon and text */
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: none;
+    background: none;
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item.active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 300px;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        position: relative;
+    }
+    
+    .container {
+        flex-direction: column;
+    }
+}
+
+
+/************************* main page **********************************************/
+
+.main-content{
+    flex: 1;
+    background-color: #f3f4f6;
+    padding: 2rem;
+}
+
+/************** heading ***************/
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+/************* report button ***********/
+.report-butn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.report-btn:hover {
+    background-color: #1d4ed8;
+}
+
+/****************** Summary cards ************************/
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* individual card design */
+.card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* all icon common design */
+.card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+/* individual image design */
+
+.card-icon.income {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+.card-icon.expense {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.card-icon.balance {
+    background-color: #dbeafe;
+    color: #2563eb;
+}
+
+.card h3 {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+}
+
+.amount {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+
+/*************************** transaction details div *****************/
+
+.transactions-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+   
+}
+
+
+/********* detila div ***********/
+.transactions-list {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    max-height: 360px;
+    overflow-y: auto; /* Add vertical scrolling */
+    
+}
+
+
+/* design for details inside transaction div */
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.transaction-item:hover {
+    background-color: #f9fafb;
+}
+
+
+
+ .transaction-item.selected {
+    background-color: #eff6ff;
+    border-color: #93c5fd;
+}
+
+/***************************** right side content *****************************/
+
+ .transaction-details {
+    background-color: white;
+    padding: 1.5rem;
+    max-height: 200px;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+} 
+
+
+
+.transaction-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.transaction-actions button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: #ffd700;
+}
+
+.delete-btn {
+    background-color: #ff4444;
+    color: var(--white);
+}
+
+
+/* view details page */
+
+.details-card{
+    display: flex;
+    justify-content: space-between;
+}
+
+.cross-btn{
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.edit-btn:hover {
+    background-color: #f59e0b; /* Darker Yellow */
+}
+
+
+
+.delete-btn:hover {
+    background-color: #dc2626; /* Darker Red */
+}
+
+
+.text-success {
+    color: green;
+
+}
+.text-danger {
+    color: red;
+}
+
+
+
+
+
+/**************************************************** scrollbar ***************************************************/
+
+/* Custom Scrollbar for WebKit Browsers */
+.transactions-list::-webkit-scrollbar {
+    width: 2px; /* Width of the scrollbar */
+}
+
+.transactions-list::-webkit-scrollbar-track {
+    background: rgb(240, 240, 240); /* Track color */
+    border-radius: 5px; /* Round the corners of the track */
+}
+
+.transactions-list::-webkit-scrollbar-thumb {
+    background-color: rgb(176, 174, 174); /* Scrollbar color */
+    border-radius: 5px; /* Round the corners of the scrollbar */
+}
+
+.transactions-list::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(196, 195, 195); /* Darker color on hover */
+}
+
+/* Hover effect for Firefox */
+.transactions-list:hover {
+    scrollbar-color: rgb(179, 177, 177) rgb(240, 240, 240); /* Change thumb color on hover */
+}
+
+
+
+
+
+/*************************************************************** report page ********************************************************************/
+
+.report-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    height: 550px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.back-btn{
+    background-color:#2563eb ;
+    border: none;
+    border-radius: 0.25rem;
+    color: white;
+    padding: 0.2rem 0.8rem;
+    
+}
+
+
+.report-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* button design */
+.report-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    background-color: grey; 
+}
+
+.report-btn.active {
+    background-color: #2563eb;
+    color: white;
+}
+
+/* pie chart */
+
+.chart-container {
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.chart-legend {
+    margin-top: 2rem;
+}
+
+
+/* initially report page is hidden */
+.hidden {
+    display: none;
+}
+
+
+/******************************************* modal *******************************/
+
+.modal {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+     
+}
+
+
+/* when add expense click modal should display at the center */
+.modal.active {
+    display: flex;
+    
+}
+
+
+/******************* modal overall design ********************/
+.modal-content {
+    background-color: white;
+    width: 100%;
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+
+/* to style modal heading */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+/******************* closee icon style *****************************/
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+
+/* modal form styles */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* radio button  */
+.date-selection {
+    display: flex;
+    gap: 1rem;
+}
+
+.hidden{
+    display: none;
+}
+/* transaction type button */
+.transaction-type {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* style for both button */
+.type-btn {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.type-btn.active[data-type="expense"] {
+    background-color: #dc2626;
+    color: white;
+}
+
+.type-btn.active[data-type="income"] {
+    background-color: #16a34a;
+    color: white;
+}
+
+/* common styles for all formss */
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+
+.form-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+
+.submit-btn,
+.cancel-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.submit-btn {
+    background-color: #2563eb;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+
