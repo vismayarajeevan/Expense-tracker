@@ -378,7 +378,7 @@ function showTransactionDetails(id) {
          </div>
 
          <div>
-                <p class="text-sm text-gray-600">Amount: $${transaction.amount.toFixed(2)}</p>
+                <p class="text-sm text-gray-600">Amount: $${transaction.amount}</p>
         </div>
 
          <div>
