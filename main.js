@@ -160,11 +160,12 @@ function updateTransactionsList() {
                 <small>${transaction.date.toLocaleDateString('en-GB')}</small>
             </div>
 
-             <div>
-                  <span class=" ${transaction.type === 'income' ? 'text-success' : 'text-danger'}">
-                    ${transaction.type === 'income' ? '+' : '-'}$${transaction.amount.toFixed(2)}
+          
+             <div id="amnt">
+                  <span  class=" ${transaction.type === 'income' ? 'text-success' : 'text-danger'}">
+                    ${transaction.type === 'income' ? '+' : '-'}$${transaction.amount}
                   </span>
-
+           
 
                    <!-- Edit and Delete buttons -->
 
@@ -172,7 +173,7 @@ function updateTransactionsList() {
                    <div class="transaction-actions">
                    <button class="edit-btn" onclick="editTransaction(${transaction.id})"> <i class="fas fa-edit"></i></button>
                    <button class="delete-btn"  onclick="deleteTransaction(${transaction.id})" class="text-red-500 hover:text-red-700"> <i class="fa-solid fa-trash" style="color: #f7f9fd;"></i></button>
-                </div>
+                 </div>
 
             
             </div>
@@ -360,6 +361,7 @@ function showTransactionDetails(id) {
 
         const capitalizedType = transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1);
 
+        detailsDiv.querySelector('.details-content').setAttribute('data-id', id); // Track ID
         detailsDiv.querySelector('.details-content').innerHTML = `
 
          <div class="details-card">
@@ -411,9 +413,19 @@ function closeDetails() {
 // Transaction Functions
 function deleteTransaction(id) {
     if (confirm('Are you sure you want to delete this transaction?')) {
-        transactions = transactions.filter(t => t.id !== id);
+
+         // Check if the currently displayed transaction is the one being deleted
+         const currentDetailsId = document.getElementById('transactionDetails')
+         .querySelector('.details-content')
+         .getAttribute('data-id'); // Add a custom attribute for tracking the displayed ID
+        
+        
+         transactions = transactions.filter(t => t.id !== id);
         updateUI();
-        closeDetails();
+        // Close details only if the deleted transaction is being displayed
+        if (currentDetailsId == id) {
+            closeDetails();
+        }
     }
 }
 
@@ -545,5 +557,10 @@ function logout() {
     if (confirm('Are you sure you want to logout?')) {
         transactions = [];
         updateUI();
+
+        // Reset transaction details section
+        const detailsDiv = document.getElementById('transactionDetails');
+        detailsDiv.querySelector('.details-content').innerHTML = "Select a transaction to view details";
+        // detailsDiv.style.display = 'none'; // Hide the transaction details
     }
 }

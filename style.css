@@ -228,6 +228,9 @@ body{
     transition: background-color 0.2s;
 }
 
+
+
+
 .transaction-item:hover {
     background-color: #f9fafb;
 }
@@ -238,6 +241,11 @@ body{
     background-color: #eff6ff;
     border-color: #93c5fd;
 }
+
+#amnt{
+    margin-right: 30px;
+}
+
 
 /***************************** right side content *****************************/
 
@@ -252,8 +260,13 @@ body{
 
 
 .transaction-actions {
+    margin-top: 8px;
+    /* margin-right: 10px; */
     display: flex;
     gap: 0.5rem;
+
+
+    
 }
 
 .transaction-actions button {
