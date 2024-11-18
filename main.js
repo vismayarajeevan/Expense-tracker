@@ -155,7 +155,9 @@ function updateTransactionsList() {
            
                 <strong>${transaction.category}</strong>
                 <p>${transaction.description}</p>
-                <small>${transaction.date.toLocaleDateString()}</small>
+
+                <!-- en-GB to convert date in the format dd-mnth-year -->
+                <small>${transaction.date.toLocaleDateString('en-GB')}</small>
             </div>
 
              <div>

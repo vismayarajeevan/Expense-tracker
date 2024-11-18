@@ -560,3 +560,26 @@ textarea {
         transform: translateX(0);
     }
 }
+
+
+
+@media (max-width: 768px) {
+    .header {
+       
+        align-items: flex-start;
+    }
+
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .transactions-container {
+        grid-template-columns: 1fr;
+    }
+
+   
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+}
